@@ -1,0 +1,51 @@
+year,detections,nino34,phase,country
+2001,8437,0.0125,neutral,Indonesia
+2002,99611,0.9025000000000001,El Niño,Indonesia
+2003,36866,0.36,neutral,Indonesia
+2004,78748,0.7225,El Niño,Indonesia
+2005,35275,-0.009999999999999995,neutral,Indonesia
+2006,116252,0.73,El Niño,Indonesia
+2007,28881,-0.9650000000000001,La Niña,Indonesia
+2008,22749,-0.275,neutral,Indonesia
+2009,66244,0.8975,El Niño,Indonesia
+2010,10727,-1.325,La Niña,Indonesia
+2011,39337,-0.7675000000000001,La Niña,Indonesia
+2012,46356,0.3325,neutral,Indonesia
+2013,27910,-0.11750000000000001,neutral,Indonesia
+2014,59667,0.4375,neutral,Indonesia
+2015,130797,1.8199999999999998,El Niño,Indonesia
+2016,10924,-0.2675,neutral,Indonesia
+2017,9981,-0.1775,neutral,Indonesia
+2018,26236,0.7525,El Niño,Indonesia
+2019,71195,0.5325,El Niño,Indonesia
+2020,7247,-0.685,La Niña,Indonesia
+2021,5877,-0.57,La Niña,Indonesia
+2022,4411,-0.825,La Niña,Indonesia
+2023,37662,1.495,El Niño,Indonesia
+2024,12816,0.012499999999999999,neutral,Indonesia
+2025,8231,-0.35750000000000004,neutral,Indonesia
+2001,122665,-0.07250000000000001,neutral,Australia
+2002,219943,1.0474999999999999,El Niño,Australia
+2003,94070,0.39249999999999996,neutral,Australia
+2004,201848,0.765,El Niño,Australia
+2005,77663,-0.19,neutral,Australia
+2006,190231,0.8725,El Niño,Australia
+2007,149606,-1.1875,La Niña,Australia
+2008,83242,-0.4225,neutral,Australia
+2009,149244,1.1425,El Niño,Australia
+2010,35044,-1.4125,La Niña,Australia
+2011,256809,-0.875,La Niña,Australia
+2012,271361,0.2175,neutral,Australia
+2013,78565,-0.07250000000000001,neutral,Australia
+2014,125645,0.595,El Niño,Australia
+2015,103705,1.98,El Niño,Australia
+2016,65349,-0.285,neutral,Australia
+2017,141132,-0.35250000000000004,neutral,Australia
+2018,144787,0.94,El Niño,Australia
+2019,164617,0.6275,El Niño,Australia
+2020,44420,-0.8675,La Niña,Australia
+2021,74888,-0.7025,La Niña,Australia
+2022,52186,-0.7825,La Niña,Australia
+2023,256819,1.635,El Niño,Australia
+2024,114339,-0.165,neutral,Australia
+2025,123035,-0.4175,neutral,Australia

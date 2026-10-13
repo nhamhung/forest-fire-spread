@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "size": 200,
+    "density": 0.7,
+    "forest_seed": 11,
+    "fire_seed": 3,
+    "rules": [
+      [
+        "von_neumann",
+        1.0
+      ],
+      [
+        "von_neumann",
+        0.8
+      ],
+      [
+        "moore",
+        1.0
+      ],
+      [
+        "moore",
+        0.5
+      ]
+    ]
+  },
+  "summary": {},
+  "created_utc": "2026-10-13T08:03:46+00:00",
+  "python": "3.12.8",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6"
+}

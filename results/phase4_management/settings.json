@@ -1,0 +1,323 @@
+{
+  "settings": {
+    "model": "fire_management",
+    "ignition": "one random lightning strike on a tree",
+    "q": 0.92,
+    "size": 200,
+    "density": 0.7,
+    "q_normal": 0.6,
+    "dryness": 0.8,
+    "neighbourhood": "von_neumann",
+    "budgets": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3
+    ],
+    "strategies": [
+      "firebreaks",
+      "thinning",
+      "controlled_burns"
+    ],
+    "burn_patch": 10,
+    "break_width": 1,
+    "spot_prob": 0.0,
+    "spot_radius": 0,
+    "n_runs": 100,
+    "seed": 2029
+  },
+  "summary": {
+    "summary": [
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.02,
+        "loss": 0.8562,
+        "removed": 0.0213,
+        "duration": 304.41,
+        "loss_sem": 0.0236,
+        "total_loss": 0.8775,
+        "trees_saved_per_tree_removed": 1.0456
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.04,
+        "loss": 0.8262,
+        "removed": 0.0414,
+        "duration": 310.76,
+        "loss_sem": 0.0242,
+        "total_loss": 0.8675,
+        "trees_saved_per_tree_removed": 1.265
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.06,
+        "loss": 0.8383,
+        "removed": 0.0613,
+        "duration": 329.15,
+        "loss_sem": 0.0172,
+        "total_loss": 0.8996,
+        "trees_saved_per_tree_removed": 0.6553
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.08,
+        "loss": 0.7719,
+        "removed": 0.0812,
+        "duration": 326.18,
+        "loss_sem": 0.0244,
+        "total_loss": 0.8532,
+        "trees_saved_per_tree_removed": 1.3115
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.1,
+        "loss": 0.7613,
+        "removed": 0.1013,
+        "duration": 339.96,
+        "loss_sem": 0.0211,
+        "total_loss": 0.8626,
+        "trees_saved_per_tree_removed": 1.1573
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.15,
+        "loss": 0.6577,
+        "removed": 0.1511,
+        "duration": 368.95,
+        "loss_sem": 0.0234,
+        "total_loss": 0.8088,
+        "trees_saved_per_tree_removed": 1.461
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.2,
+        "loss": 0.5146,
+        "removed": 0.201,
+        "duration": 385.06,
+        "loss_sem": 0.0256,
+        "total_loss": 0.7156,
+        "trees_saved_per_tree_removed": 1.81
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.25,
+        "loss": 0.3697,
+        "removed": 0.2511,
+        "duration": 357.37,
+        "loss_sem": 0.0216,
+        "total_loss": 0.6208,
+        "trees_saved_per_tree_removed": 2.0263
+      },
+      {
+        "strategy": "controlled_burns",
+        "budget": 0.3,
+        "loss": 0.1696,
+        "removed": 0.301,
+        "duration": 229.44,
+        "loss_sem": 0.0166,
+        "total_loss": 0.4706,
+        "trees_saved_per_tree_removed": 2.3553
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.02,
+        "loss": 0.2153,
+        "removed": 0.0199,
+        "duration": 159.49,
+        "loss_sem": 0.0044,
+        "total_loss": 0.2352,
+        "trees_saved_per_tree_removed": 33.31
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.04,
+        "loss": 0.046,
+        "removed": 0.0397,
+        "duration": 77.67,
+        "loss_sem": 0.0017,
+        "total_loss": 0.0858,
+        "trees_saved_per_tree_removed": 20.9652
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.06,
+        "loss": 0.0202,
+        "removed": 0.0592,
+        "duration": 51.63,
+        "loss_sem": 0.0007,
+        "total_loss": 0.0793,
+        "trees_saved_per_tree_removed": 14.5051
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.08,
+        "loss": 0.0089,
+        "removed": 0.0784,
+        "duration": 33.83,
+        "loss_sem": 0.0004,
+        "total_loss": 0.0874,
+        "trees_saved_per_tree_removed": 11.0886
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.1,
+        "loss": 0.006,
+        "removed": 0.0974,
+        "duration": 28.04,
+        "loss_sem": 0.0002,
+        "total_loss": 0.1034,
+        "trees_saved_per_tree_removed": 8.958
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.15,
+        "loss": 0.0024,
+        "removed": 0.1444,
+        "duration": 16.75,
+        "loss_sem": 0.0001,
+        "total_loss": 0.1468,
+        "trees_saved_per_tree_removed": 6.0668
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.2,
+        "loss": 0.0012,
+        "removed": 0.2079,
+        "duration": 11.49,
+        "loss_sem": 0.0001,
+        "total_loss": 0.2092,
+        "trees_saved_per_tree_removed": 4.2191
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.25,
+        "loss": 0.0006,
+        "removed": 0.2605,
+        "duration": 7.38,
+        "loss_sem": 0.0,
+        "total_loss": 0.2612,
+        "trees_saved_per_tree_removed": 3.3694
+      },
+      {
+        "strategy": "firebreaks",
+        "budget": 0.3,
+        "loss": 0.0005,
+        "removed": 0.3027,
+        "duration": 6.47,
+        "loss_sem": 0.0,
+        "total_loss": 0.3031,
+        "trees_saved_per_tree_removed": 2.9008
+      },
+      {
+        "strategy": "none",
+        "budget": 0.0,
+        "loss": 0.8785,
+        "removed": 0.0,
+        "duration": 313.54,
+        "loss_sem": 0.0242,
+        "total_loss": 0.8785,
+        "trees_saved_per_tree_removed": NaN
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.02,
+        "loss": 0.8783,
+        "removed": 0.0202,
+        "duration": 341.72,
+        "loss_sem": 0.0155,
+        "total_loss": 0.8986,
+        "trees_saved_per_tree_removed": 0.0071
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.04,
+        "loss": 0.7609,
+        "removed": 0.0401,
+        "duration": 337.9,
+        "loss_sem": 0.0269,
+        "total_loss": 0.801,
+        "trees_saved_per_tree_removed": 2.9326
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.06,
+        "loss": 0.7105,
+        "removed": 0.0601,
+        "duration": 371.63,
+        "loss_sem": 0.0232,
+        "total_loss": 0.7706,
+        "trees_saved_per_tree_removed": 2.7972
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.08,
+        "loss": 0.4809,
+        "removed": 0.0802,
+        "duration": 362.49,
+        "loss_sem": 0.0283,
+        "total_loss": 0.5611,
+        "trees_saved_per_tree_removed": 4.957
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.1,
+        "loss": 0.2421,
+        "removed": 0.1001,
+        "duration": 276.16,
+        "loss_sem": 0.0216,
+        "total_loss": 0.3421,
+        "trees_saved_per_tree_removed": 6.3596
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.15,
+        "loss": 0.0173,
+        "removed": 0.1499,
+        "duration": 63.83,
+        "loss_sem": 0.0022,
+        "total_loss": 0.1672,
+        "trees_saved_per_tree_removed": 5.7444
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.2,
+        "loss": 0.0039,
+        "removed": 0.1999,
+        "duration": 25.47,
+        "loss_sem": 0.0005,
+        "total_loss": 0.2038,
+        "trees_saved_per_tree_removed": 4.3742
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.25,
+        "loss": 0.0018,
+        "removed": 0.2498,
+        "duration": 15.97,
+        "loss_sem": 0.0003,
+        "total_loss": 0.2516,
+        "trees_saved_per_tree_removed": 3.5094
+      },
+      {
+        "strategy": "thinning",
+        "budget": 0.3,
+        "loss": 0.0009,
+        "removed": 0.3,
+        "duration": 11.0,
+        "loss_sem": 0.0001,
+        "total_loss": 0.3009,
+        "trees_saved_per_tree_removed": 2.9252
+      }
+    ]
+  },
+  "created_utc": "2026-10-13T12:38:42+00:00",
+  "python": "3.12.8",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6"
+}

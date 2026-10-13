@@ -1,0 +1,180 @@
+{
+  "settings": {
+    "sources": {
+      "fires": "https://firms.modaps.eosdis.nasa.gov/data/country/modis/{year}/modis_{year}_{country}.csv",
+      "nino34": "https://psl.noaa.gov/data/correlation/nina34.anom.data"
+    },
+    "filters": "MODIS confidence >= 30, type 0 (vegetation fire)",
+    "seasons": {
+      "Indonesia": {
+        "months": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "label": "Aug-Nov"
+      },
+      "Australia": {
+        "months": [
+          9,
+          10,
+          11,
+          12
+        ],
+        "label": "Sep-Dec"
+      }
+    },
+    "thresholds_degC": [
+      -0.5,
+      0.5
+    ]
+  },
+  "summary": {
+    "by_country": {
+      "Indonesia": {
+        "season": "Aug-Nov",
+        "years": "2001-2025",
+        "spearman_rho": 0.7315384615384616,
+        "spearman_p": 3.252310843481898e-05,
+        "permutation_p_el_nino_higher": 0.000199990000499975,
+        "by_phase": [
+          {
+            "phase": "La Ni\u00f1a",
+            "years": 6,
+            "median": 8987.0,
+            "mean": 16080.0,
+            "mean_vs_neutral": 0.6
+          },
+          {
+            "phase": "neutral",
+            "years": 11,
+            "median": 22749.0,
+            "mean": 25382.9,
+            "mean_vs_neutral": 1.0
+          },
+          {
+            "phase": "El Ni\u00f1o",
+            "years": 8,
+            "median": 74971.5,
+            "mean": 78343.1,
+            "mean_vs_neutral": 3.1
+          }
+        ],
+        "top_years": [
+          {
+            "year": 2015,
+            "detections": 130797,
+            "nino34": 1.82,
+            "phase": "El Ni\u00f1o"
+          },
+          {
+            "year": 2006,
+            "detections": 116252,
+            "nino34": 0.73,
+            "phase": "El Ni\u00f1o"
+          },
+          {
+            "year": 2002,
+            "detections": 99611,
+            "nino34": 0.9,
+            "phase": "El Ni\u00f1o"
+          },
+          {
+            "year": 2004,
+            "detections": 78748,
+            "nino34": 0.72,
+            "phase": "El Ni\u00f1o"
+          },
+          {
+            "year": 2019,
+            "detections": 71195,
+            "nino34": 0.53,
+            "phase": "El Ni\u00f1o"
+          }
+        ]
+      },
+      "Australia": {
+        "season": "Sep-Dec",
+        "years": "2001-2025",
+        "spearman_rho": 0.5066359008894712,
+        "spearman_p": 0.0097530924091211,
+        "permutation_p_el_nino_higher": 0.00519974001299935,
+        "by_phase": [
+          {
+            "phase": "La Ni\u00f1a",
+            "years": 6,
+            "median": 63537.0,
+            "mean": 102158.8,
+            "mean_vs_neutral": 0.9
+          },
+          {
+            "phase": "neutral",
+            "years": 10,
+            "median": 104204.5,
+            "mean": 117142.1,
+            "mean_vs_neutral": 1.0
+          },
+          {
+            "phase": "El Ni\u00f1o",
+            "years": 9,
+            "median": 164617.0,
+            "mean": 172982.1,
+            "mean_vs_neutral": 1.5
+          }
+        ],
+        "top_years": [
+          {
+            "year": 2012,
+            "detections": 271361,
+            "nino34": 0.22,
+            "phase": "neutral"
+          },
+          {
+            "year": 2023,
+            "detections": 256819,
+            "nino34": 1.64,
+            "phase": "El Ni\u00f1o"
+          },
+          {
+            "year": 2011,
+            "detections": 256809,
+            "nino34": -0.88,
+            "phase": "La Ni\u00f1a"
+          },
+          {
+            "year": 2002,
+            "detections": 219943,
+            "nino34": 1.05,
+            "phase": "El Ni\u00f1o"
+          },
+          {
+            "year": 2004,
+            "detections": 201848,
+            "nino34": 0.76,
+            "phase": "El Ni\u00f1o"
+          }
+        ]
+      }
+    },
+    "context_2026": {
+      "latest_nino34": {
+        "year": 2026,
+        "month": 9,
+        "value": 2.09
+      },
+      "indonesia_seasons_with_nino34_ge_1.5": [
+        {
+          "year": 2015,
+          "detections": 130797,
+          "nino34": 1.82
+        }
+      ],
+      "note": "FIRMS yearly country files for 2026 were not yet published, so the 2026 fire season is not scored."
+    }
+  },
+  "created_utc": "2026-10-13T12:46:30+00:00",
+  "python": "3.12.8",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6"
+}

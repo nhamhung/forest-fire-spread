@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600&display=swap");
+  :root { --bg: #120d0a; --panel: #1c1511; --line: #3a2c22; --text: #f3e9df; --muted: #a8968a;
+          --fire: #ff7a1a; --ember: #ffcc4d; --green: #5cbf5f; --blue: #6fb3e8; --mono: "JetBrains Mono", ui-monospace, monospace; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; font-size: 13px; }
+  .wrap { display: flex; flex-direction: column; gap: 8px; padding: 2px; }
+  .views { display: grid; gap: 8px; }
+  .views.single { max-width: 640px; width: 100%; margin: 0 auto; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .head { display: flex; align-items: center; gap: 10px; padding: 7px 12px; border-bottom: 1px solid var(--line); font-weight: 600; }
+  .head .grow { flex: 1; }
+  .head .tag { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--muted); }
+  canvas { display: block; width: 100%; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+  .stat { background: var(--panel); padding: 7px 12px; }
+  .stat .k { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .stat .v { font-family: var(--mono); font-size: 17px; margin-top: 2px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 6px 12px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--line); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid #6b5a4e; }
+  .controls { display: flex; align-items: center; gap: 8px; padding: 8px 12px; flex-wrap: wrap; }
+  button, select { font-family: var(--mono); font-size: 12px; color: var(--text); background: #2a1f18; border: 1px solid var(--line);
+                   border-radius: 5px; padding: 6px 12px; cursor: pointer; }
+  button:hover { border-color: var(--fire); }
+  button.primary { background: var(--fire); color: #1a0f08; border-color: var(--fire); font-weight: 600; min-width: 90px; }
+  input[type=range] { flex: 1; min-width: 140px; accent-color: var(--fire); }
+  .flabel { font-family: var(--mono); color: var(--muted); min-width: 120px; text-align: right; }
+  @media (max-width: 760px) { .views { grid-template-columns: 1fr !important; } .stats { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="views" id="views"></div>
+  <div class="panel"><canvas id="trace" height="110"></canvas></div>
+  <div class="panel controls">
+    <button class="primary" id="play">▶ PLAY</button>
+    <button id="restart" title="Restart">⟲</button>
+    <input type="range" id="scrub" min="0" value="0" step="1" aria-label="time">
+    <span class="flabel" id="flabel"></span>
+    <select id="speed" title="Playback speed"><option value="15">0.5×</option><option value="30" selected>1×</option><option value="60">2×</option><option value="120">4×</option></select>
+  </div>
+</div>
+<script>
+const P = __PAYLOAD__;
+const COLORS = ["#ff7a1a", "#6fb3e8"];
+// cell codes in the payload: 0 ground, 1 tree, 3 pre-burnt (controlled burn), 4 cleared (firebreak / thinned)
+const RGB = { ground: [58, 46, 36], tree: [46, 125, 50], ash: [24, 20, 18], cleared: [70, 120, 160], preburnt: [92, 96, 110] };
+
+function b64bytes(s) { const bin = atob(s); const a = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return a; }
+for (const r of P.runs) { r.cells = b64bytes(r.cells_b64); r.arrival = new Int32Array(b64bytes(r.arrival_b64).buffer); }
+const T = P.t_max;                                     // last step shown (longest fire)
+const S = { t: 0, playing: P.autoplay, last: performance.now() };
+
+const views = document.getElementById("views");
+views.style.gridTemplateColumns = `repeat(${P.runs.length}, minmax(0, 1fr))`;
+if (P.runs.length === 1) views.classList.add("single");
+P.runs.forEach((r, i) => {
+  const v = document.createElement("div"); v.className = "panel";
+  v.innerHTML = `<div class="head"><span style="color:${COLORS[i]}">●</span>${r.label}<span class="grow"></span><span class="tag">${r.tag}</span></div>
+    <canvas id="map${i}"></canvas>
+    <div class="stats">
+      <div class="stat"><div class="k">burned</div><div class="v" id="burned${i}">0%</div></div>
+      <div class="stat"><div class="k">burning now</div><div class="v" id="active${i}">0</div></div>
+      <div class="stat"><div class="k">removed beforehand</div><div class="v">${(100 * r.removed).toFixed(1)}%</div></div>
+      <div class="stat"><div class="k">${r.reach_label}</div><div class="v" id="reach${i}">—</div></div>
+    </div>
+    <div class="legend"><span><i style="background:rgb(${RGB.tree})"></i>tree</span><span><i style="background:#ffb02e"></i>burning</span>
+      <span><i style="background:rgb(${RGB.ash})"></i>burnt</span><span><i style="background:rgb(${RGB.ground})"></i>bare ground</span>
+      ${r.removed > 0 ? `<span><i style="background:rgb(${RGB.cleared})"></i>cleared</span><span><i style="background:rgb(${RGB.preburnt})"></i>pre-burnt</span>` : ""}</div>`;
+  views.appendChild(v);
+});
+const scrub = document.getElementById("scrub"); scrub.max = T;
+
+function fit(c, square) { const w = Math.max(50, Math.round(c.getBoundingClientRect().width)); if (c.width !== w) c.width = w;
+  if (square && c.height !== w) c.height = w; return [c.width, c.height]; }
+const fmtPct = x => `${(100 * x).toFixed(x < 0.1 ? 1 : 0)}%`;
+
+function drawMap(i, t) {
+  const r = P.runs[i], n = r.size, c = document.getElementById("map" + i), [W] = fit(c, true), ctx = c.getContext("2d");
+  const img = new ImageData(n, n), d = img.data, B = P.burn_steps;
+  let active = 0, burnt = 0;
+  for (let k = 0; k < n * n; k++) {
+    const a = r.arrival[k], code = r.cells[k]; let col;
+    if (a >= 0 && a <= t) {
+      if (t < a + B) {                           // burning: flicker between orange and yellow
+        const f = 0.5 + 0.5 * Math.sin((k * 12.9898 + t * 0.9) % 6.283);
+        col = [255, 120 + 90 * f, 20 + 40 * f]; active++;
+      } else col = RGB.ash;
+      burnt++;
+    } else col = code === 1 ? RGB.tree : code === 3 ? RGB.preburnt : code === 4 ? RGB.cleared : RGB.ground;
+    d[4 * k] = col[0]; d[4 * k + 1] = col[1]; d[4 * k + 2] = col[2]; d[4 * k + 3] = 255;
+  }
+  const off = new OffscreenCanvas(n, n); off.getContext("2d").putImageData(img, 0, 0);
+  ctx.imageSmoothingEnabled = false; ctx.drawImage(off, 0, 0, W, W);
+  const s = W / n;
+  if (r.strike) {                                  // lightning strike marker
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc((r.strike[1] + 0.5) * s, (r.strike[0] + 0.5) * s, 7, 0, 6.283); ctx.stroke();
+  }
+  if (P.wind_speed > 0) {                          // wind arrow, top-right corner
+    const a = P.wind_direction * Math.PI / 180, cx = W - 46, cy = 46, L = 14 + P.wind_speed * 1.6;
+    ctx.fillStyle = "rgba(0,0,0,.55)"; ctx.beginPath(); ctx.arc(cx, cy, 38, 0, 6.283); ctx.fill();
+    ctx.strokeStyle = "#cfe8ff"; ctx.fillStyle = "#cfe8ff"; ctx.lineWidth = 3;
+    const ex = cx + Math.cos(a) * L, ey = cy - Math.sin(a) * L;
+    ctx.beginPath(); ctx.moveTo(cx - Math.cos(a) * L, cy + Math.sin(a) * L); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex - 9 * Math.cos(a - 0.5), ey + 9 * Math.sin(a - 0.5));
+    ctx.lineTo(ex - 9 * Math.cos(a + 0.5), ey + 9 * Math.sin(a + 0.5)); ctx.closePath(); ctx.fill();
+    ctx.font = "11px JetBrains Mono, monospace"; ctx.textAlign = "center"; ctx.fillText(`${P.wind_speed} m/s`, cx, cy + 30); ctx.textAlign = "left";
+  }
+  document.getElementById("burned" + i).textContent = fmtPct(burnt / r.n_trees);
+  document.getElementById("active" + i).textContent = active.toLocaleString();
+  document.getElementById("reach" + i).textContent = t >= r.duration ? (r.reached_edge ? "yes" : "no") : "…";
+}
+function drawTrace(t) {
+  const c = document.getElementById("trace"), [W, H] = fit(c, false), ctx = c.getContext("2d");
+  const L = 42, R = 10, Tm = 18, B = 18, X = s => L + (W - L - R) * s / T, Y = v => Tm + (H - Tm - B) * (1 - v);
+  ctx.clearRect(0, 0, W, H); ctx.font = "10px JetBrains Mono, monospace"; ctx.fillStyle = "#a8968a";
+  ctx.fillText("fraction of trees burned over time", L, 12); ctx.fillText("100%", 4, Tm + 4); ctx.fillText("0", 4, H - B);
+  ctx.fillText(`step ${T}`, W - R - 50, H - 4);
+  ctx.strokeStyle = "#3a2c22"; ctx.beginPath(); ctx.moveTo(L, H - B); ctx.lineTo(W - R, H - B); ctx.moveTo(L, Tm); ctx.lineTo(W - R, Tm); ctx.stroke();
+  P.runs.forEach((r, i) => { ctx.strokeStyle = COLORS[i]; ctx.lineWidth = 2; ctx.beginPath();
+    for (let s = 0; s <= Math.min(t, T); s++) { const y = Y(r.burned_curve[Math.min(s, r.burned_curve.length - 1)]); s ? ctx.lineTo(X(s), y) : ctx.moveTo(X(s), y); }
+    ctx.stroke(); });
+  ctx.strokeStyle = "#a8968a"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(X(t), Tm); ctx.lineTo(X(t), H - B); ctx.stroke();
+}
+document.getElementById("play").onclick = () => { if (S.t >= T) S.t = 0; S.playing = !S.playing; };
+document.getElementById("restart").onclick = () => { S.t = 0; S.playing = true; };
+scrub.oninput = () => { S.t = Number(scrub.value); S.playing = false; };
+let drawn = { t: -1, w: 0 };
+function loop(now) {
+  const dt = Math.min(64, now - S.last); S.last = now;
+  if (S.playing) { S.t = Math.min(T, S.t + dt / 1000 * Number(document.getElementById("speed").value) * Math.max(1, T / 600)); if (S.t >= T) S.playing = false; }
+  const t = Math.round(S.t), w = document.body.clientWidth;
+  if (t !== drawn.t || w !== drawn.w) {
+    P.runs.forEach((_, i) => drawMap(i, t)); drawTrace(t); drawn = { t, w };
+    scrub.value = t; document.getElementById("flabel").textContent = `step ${t} / ${T}`;
+  }
+  document.getElementById("play").textContent = S.playing ? "⏸ PAUSE" : (S.t >= T ? "⟲ REPLAY" : "▶ PLAY");
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

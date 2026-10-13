@@ -1,0 +1,99 @@
+/* Report styling for the Forest Fire write-ups (shared look with the other portfolio reports). */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --accent: #c2410c;
+  --accent-dark: #9a3412;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, .title, .subtitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin-top: 2.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--accent);
+}
+
+h3 {
+  color: var(--accent-dark);
+}
+
+code, pre, .sourceCode {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+  font-size: 0.88em;
+}
+
+/* Title block banner */
+#title-block-header.quarto-title-block.default .quarto-title-banner {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  padding: 3.5rem 2rem;
+  border-radius: 0 0 12px 12px;
+}
+
+#title-block-header .quarto-title-banner .title,
+#title-block-header .quarto-title-banner .subtitle,
+#title-block-header .quarto-title-banner .quarto-title-author,
+#title-block-header .quarto-title-banner .quarto-title-meta-heading,
+#title-block-header .quarto-title-banner .quarto-title-meta-contents {
+  color: #fff !important;
+}
+
+/* Tables */
+.table {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: var(--accent);
+  color: #fff;
+  border-bottom: none !important;
+}
+
+/* Callouts: a touch more rounded + shadowed than the Quarto default */
+div.callout {
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Figures */
+figure, .quarto-figure {
+  margin: 1.75rem 0;
+}
+
+figcaption, .figure-caption {
+  font-size: 0.9em;
+  color: #6c757d;
+  text-align: center;
+}
+
+/* TOC */
+#TOC {
+  font-size: 0.92rem;
+}
+
+#TOC .toc-actions {
+  margin-bottom: 0.5em;
+}
+
+/* Dark mode adjustments (Quarto sets data-theme via the theme toggle) */
+[data-theme="dark"] h2 {
+  border-bottom-color: #6f97e8;
+}
+
+[data-theme="dark"] .table thead th {
+  background-color: #3a5cad;
+}

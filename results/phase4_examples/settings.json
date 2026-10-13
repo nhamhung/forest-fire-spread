@@ -1,0 +1,47 @@
+{
+  "settings": {
+    "model": "fire_management",
+    "ignition": "one random lightning strike on a tree",
+    "q": 0.92,
+    "size": 200,
+    "density": 0.7,
+    "q_normal": 0.6,
+    "dryness": 0.8,
+    "neighbourhood": "von_neumann",
+    "budgets": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3
+    ],
+    "strategies": [
+      "firebreaks",
+      "thinning",
+      "controlled_burns"
+    ],
+    "burn_patch": 10,
+    "break_width": 1,
+    "spot_prob": 0.0,
+    "spot_radius": 0,
+    "n_runs": 100,
+    "seed": 2029,
+    "budget": 0.08,
+    "forest_seed": 31,
+    "fire_seed": 0,
+    "strike": [
+      99,
+      99
+    ]
+  },
+  "summary": {},
+  "created_utc": "2026-10-13T12:38:43+00:00",
+  "python": "3.12.8",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6"
+}

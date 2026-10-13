@@ -1,0 +1,5 @@
+neighbourhood,q,fraction_burned,duration,spanned
+von_neumann,1.0,0.9786437535653166,267,True
+von_neumann,0.8,0.7467912150598973,539,True
+moore,1.0,0.9999643468339988,201,True
+moore,0.5,0.9251640045636053,288,True
