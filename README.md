@@ -22,7 +22,7 @@ the 2026–27 El Niño as context.
 
 ## Reports
 
-* [Project report](https://nhamhhung.github.io/forest-fire-spread/) (*When Forests Catch Fire*): methods, results, the El Niño data
+* [Project report](https://nhamhung.github.io/forest-fire-spread/) (*When Forests Catch Fire*): methods, results, the El Niño data
   comparison and limitations. Every number is read from `results/`.
 * [`report/user_guide.html`](report/user_guide.html) (*Using the Forest Fire Simulator*): a guided tour of the app
   with screenshots, three hands-on experiments, troubleshooting and a glossary.
@@ -113,6 +113,6 @@ Streamlit Community Cloud app using branch `main` and entry point `app/streamlit
 to `main` update the app automatically. GitHub Pages publishes the committed report through
 `.github/workflows/pages.yml`; in the fork's **Settings → Pages**, select **GitHub Actions** as the source.
 
-**Google Colab:** each notebook's first cell clones `github.com/nhamhhung/forest-fire-spread` if that repository
+**Google Colab:** each notebook's first cell clones `github.com/nhamhung/forest-fire-spread` if that repository
 exists. Otherwise it mounts Google Drive and uses `MyDrive/forest_fire`, so copy the project folder there. Notebook
 05 needs `data/processed/`, which is included in the project folder.
